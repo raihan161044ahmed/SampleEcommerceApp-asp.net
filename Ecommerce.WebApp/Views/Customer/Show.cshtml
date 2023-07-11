@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Ecommerce.Models.EntityModels.Customer>
+
+@{
+    ViewData["Title"] = "Customer Show";
+}
+
+<h1>Customer Show</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary text-decoration-none">Create New Customer</a>
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+ 
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Phone</td>
+            <td>@item.Email</td>
+            <td class="text-center">
+                    <a asp-action="Edit" class="btn btn-warning text-decoration-none" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" class="btn btn-info text-decoration-none" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" class="btn btn-danger text-decoration-none" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

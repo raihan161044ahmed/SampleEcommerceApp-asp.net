@@ -1,0 +1,25 @@
+﻿@model ProductCreate
+ 
+
+<h4>Product Create</h4>
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" asp-for="Name" placeholder="Enter Product Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <input type="textarea" class="form-control" asp-for="Description" placeholder="Add Product Details">
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-check-label" for="Pricel">Price</label>
+        <input type="number" class="form-control" asp-for="Price" id="product-price" placeholder="Price">
+        <span asp-validation-for="Price"></span>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
