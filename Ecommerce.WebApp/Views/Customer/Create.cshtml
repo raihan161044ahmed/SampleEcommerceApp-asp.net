@@ -1,0 +1,25 @@
+﻿@model CustomerCreate
+
+
+<h4>Customer Create</h4>
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" asp-for="Name"  placeholder="Enter Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Phone">Phone</label>
+        <input type="text" class="form-control" asp-for="Phone" placeholder="Phone">
+        <span asp-validation-for="Phone"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-check-label" for="Email">Email</label>
+        <input type="email" class="form-control" asp-for="Email" id="customer-email" placeholder="Email">
+        <span asp-validation-for="Phone"></span>
+       
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
