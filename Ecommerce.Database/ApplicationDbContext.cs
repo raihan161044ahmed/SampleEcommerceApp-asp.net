@@ -15,7 +15,9 @@ namespace Ecommerce.Database
         public DbSet<Category> Categories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             string connectionString = "Server=TRAINING-PC; Database=SampleCommerceDB; Trusted_Connection=true;TrustServerCertificate=True;";
+
 
             optionsBuilder.UseSqlServer(connectionString);
         }
