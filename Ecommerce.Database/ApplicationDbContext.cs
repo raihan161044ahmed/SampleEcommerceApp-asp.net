@@ -13,10 +13,11 @@ namespace Ecommerce.Database
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            string connectionString = "Server=TRAINING-PC; Database=SampleCommerceDB; Trusted_Connection=true;TrustServerCertificate=True;";
+            string connectionString = "Server=(local); Database=SampleCommerceDB; Trusted_Connection=true;TrustServerCertificate=True;";
 
 
             optionsBuilder.UseSqlServer(connectionString);

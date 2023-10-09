@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Models.EntityModels
 {
-    public class Category
+    public class ShoppingCartItem
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public int Code { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
