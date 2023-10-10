@@ -1,10 +1,8 @@
 ﻿using Ecommerce.Database;
 using Ecommerce.Models.EntityModels;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Repositories
 {
@@ -12,9 +10,9 @@ namespace Ecommerce.Repositories
     {
         private readonly ApplicationDbContext _db;
 
-        public ShoppingCartRepository()
+        public ShoppingCartRepository(ApplicationDbContext dbContext)
         {
-            _db = new ApplicationDbContext();
+            _db = dbContext;
         }
 
         public bool AddToCart(ShoppingCartItem cartItem)

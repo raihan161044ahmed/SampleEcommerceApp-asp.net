@@ -26,7 +26,43 @@ namespace Ecommerce.WebApi.Controllers
             return Ok(cartItems);
         }
 
-        // Add more endpoints for updating and removing items as needed
+        // Endpoint to remove an item from the shopping cart by Id
+        [HttpDelete("remove/{itemId}")]
+        public IActionResult RemoveFromCart(int itemId)
+        {
+            // Find the item by Id and remove it from the cart
+            var itemToRemove = cartItems.FirstOrDefault(item => item.Id == itemId);
+            if (itemToRemove != null)
+            {
+                cartItems.Remove(itemToRemove);
+                return Ok();
+            }
+            else
+            {
+                return NotFound("Item not found in the cart.");
+            }
+        }
+
+        // Endpoint to update an item in the shopping cart by Id
+        [HttpPut("update/{itemId}")]
+        public IActionResult UpdateCartItem(int itemId, ShoppingCartItem updatedItem)
+        {
+            // Find the item by Id and update its properties
+            var itemToUpdate = cartItems.FirstOrDefault(item => item.Id == itemId);
+            if (itemToUpdate != null)
+            {
+                // Update the properties of the item
+                itemToUpdate.Id = updatedItem.Id;
+                itemToUpdate.Quantity = updatedItem.Quantity;
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound("Item not found in the cart.");
+            }
+        }
+
     }
 
 }
