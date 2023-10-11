@@ -1,5 +1,7 @@
-﻿using Ecommerce.Models.EntityModels;
+﻿using Ecommerce.Repositories;
+using Ecommerce.Models.EntityModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Ecommerce.WebApi.Controllers
 {
@@ -7,34 +9,42 @@ namespace Ecommerce.WebApi.Controllers
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
-        private List<ShoppingCartItem> cartItems = new List<ShoppingCartItem>();
+        private readonly ShoppingCartRepository _cartRepository;
 
-        // Endpoint to add items to the shopping cart
-        [HttpPost("add")]
-        public IActionResult AddToCart(ShoppingCartItem item)
-        {        
-            cartItems.Add(item);
-
-            return Ok();
+        public ShoppingCartController(ShoppingCartRepository cartRepository)
+        {
+            _cartRepository = cartRepository;
         }
 
-        // Endpoint to get the contents of the shopping cart
+        [HttpPost("add")]
+        public IActionResult AddToCart(ShoppingCartItem item)
+        {
+            bool isSuccess = _cartRepository.Add(item);
+
+            if (isSuccess)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Failed to add item to the cart.");
+            }
+        }
+
         [HttpGet("items")]
         public IActionResult GetCartItems()
         {
-            // Return the list of items in the shopping cart
+            List<ShoppingCartItem> cartItems = _cartRepository.GetCartItems().ToList();
             return Ok(cartItems);
         }
 
-        // Endpoint to remove an item from the shopping cart by Id
         [HttpDelete("remove/{itemId}")]
         public IActionResult RemoveFromCart(int itemId)
         {
-            // Find the item by Id and remove it from the cart
-            var itemToRemove = cartItems.FirstOrDefault(item => item.Id == itemId);
-            if (itemToRemove != null)
+            bool isSuccess = _cartRepository.RemoveFromCart(itemId);
+
+            if (isSuccess)
             {
-                cartItems.Remove(itemToRemove);
                 return Ok();
             }
             else
@@ -43,18 +53,13 @@ namespace Ecommerce.WebApi.Controllers
             }
         }
 
-        // Endpoint to update an item in the shopping cart by Id
         [HttpPut("update/{itemId}")]
         public IActionResult UpdateCartItem(int itemId, ShoppingCartItem updatedItem)
         {
-            // Find the item by Id and update its properties
-            var itemToUpdate = cartItems.FirstOrDefault(item => item.Id == itemId);
-            if (itemToUpdate != null)
-            {
-                // Update the properties of the item
-                itemToUpdate.Id = updatedItem.Id;
-                itemToUpdate.Quantity = updatedItem.Quantity;
+            bool isSuccess = _cartRepository.UpdateCartItem(itemId, updatedItem);
 
+            if (isSuccess)
+            {
                 return Ok();
             }
             else
@@ -62,7 +67,5 @@ namespace Ecommerce.WebApi.Controllers
                 return NotFound("Item not found in the cart.");
             }
         }
-
     }
-
 }

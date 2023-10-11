@@ -17,7 +17,7 @@ namespace Ecommerce.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            string connectionString = "Server=(local); Database=SampleCommerceDB; Trusted_Connection=true;TrustServerCertificate=True;";
+            string connectionString = "Server=Raihan\\SQLEXPRESS; Database=SampleCommerceDB; Trusted_Connection=true;TrustServerCertificate=True;";
 
 
             optionsBuilder.UseSqlServer(connectionString);

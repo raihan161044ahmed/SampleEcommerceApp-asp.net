@@ -15,7 +15,7 @@ namespace Ecommerce.Repositories
             _db = dbContext;
         }
 
-        public bool AddToCart(ShoppingCartItem cartItem)
+        public bool Add(ShoppingCartItem cartItem)
         {
             _db.ShoppingCartItems.Add(cartItem);
             return _db.SaveChanges() > 0;
@@ -37,6 +37,22 @@ namespace Ecommerce.Repositories
         public ICollection<ShoppingCartItem> GetCartItems()
         {
             return _db.ShoppingCartItems.ToList();
+        }
+
+        public bool UpdateCartItem(int itemId, ShoppingCartItem updatedItem)
+        {
+            var itemToUpdate = _db.ShoppingCartItems.FirstOrDefault(item => item.Id == itemId);
+
+            if (itemToUpdate != null)
+            {
+                // Update the properties of the item
+                itemToUpdate.Quantity = updatedItem.Quantity;
+
+                _db.Entry(itemToUpdate).State = EntityState.Modified;
+                return _db.SaveChanges() > 0;
+            }
+
+            return false;
         }
     }
 }
