@@ -8,11 +8,11 @@ namespace Ecommerce.Repositories
 {
     public class ShoppingCartRepository
     {
-        private readonly ApplicationDbContext _db;
+        ApplicationDbContext _db;
 
-        public ShoppingCartRepository(ApplicationDbContext dbContext)
+        public ShoppingCartRepository()
         {
-            _db = dbContext;
+            _db = new ApplicationDbContext();
         }
 
         public bool Add(ShoppingCartItem cartItem)
